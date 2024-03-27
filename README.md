@@ -7,6 +7,12 @@
 - Tailwind css
 - Shadcn ui
 
+### Генерация shadcnui компонентов
+```bash
+# pnpm dlx shadcn-vue@latest add [name_of_component]
+pnpm dlx shadcn-vue@latest add button
+```
+
 ### Что нужно для запуска:
 - node v20.10.0
 - npm v10.2.3
