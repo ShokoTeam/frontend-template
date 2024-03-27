@@ -1,72 +1,34 @@
 # Nuxt 3 Minimal Starter
-#### Typescript, Eslint and Tailwind css
 
-## Setup
+#### Содержимое
+- Nuxt 3
+- Typescript 
+- Eslint 
+- Tailwind css
+- Shadcn ui
 
-Make sure to install the dependencies:
+### Что нужно для запуска:
+- node v20.10.0
+- npm v10.2.3
+- pnpm (latest)
 
+
+## Установка
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## Запуск проекта
 
-Start the development server on `http://localhost:3000`:
+Переходи на `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## Сборка 
+- [ ] - Если будет время сделать докер сборку 
 
 ```bash
-# npm
-npm run build
-
-# pnpm
 pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
