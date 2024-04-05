@@ -1,11 +1,12 @@
 import { useAuthStore } from '../entities/auth/model'
 
-export default defineNuxtRouteMiddleware(async () => {
-  const { authenticated, user } = useAuthStore()
+export default defineNuxtRouteMiddleware(() => {
+  const { token } = useAuthStore()
 
-  await authenticated()
+  //   await authenticated()
+  //   console.log(token.value, 'TOKEN IN MIDDLEWARE')
 
-  if (!user.value) {
-    return navigateTo('/auth')
+  if (!token.value) {
+    return navigateTo('/login')
   }
 })

@@ -7,8 +7,7 @@
 <script setup lang="ts">
 // useHead({
 //  htmlAttrs: {
-// 	'data-theme': 'default'
+// 'data-theme': 'default'
 //  }
 // })
 </script>
-

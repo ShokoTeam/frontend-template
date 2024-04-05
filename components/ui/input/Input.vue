@@ -7,6 +7,7 @@ const props = defineProps<{
   modelValue?: string | number | null
   class?: HTMLAttributes['class']
   placeholder?: string
+  icon?: boolean
 }>()
 
 const emits = defineEmits<{
@@ -22,7 +23,10 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 <template>
   <div class="flex border border-input rounded-md">
     <!-- <slot name="icon" /> -->
-    <div class="flex items-center justify-center px-2 text-[#626F86]">
+    <div
+      v-if="props.icon"
+      class="flex items-center justify-center px-2 text-[#626F86]"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18px"

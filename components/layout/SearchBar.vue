@@ -3,6 +3,7 @@
     <UiInput
       v-model="model"
       class="w-full"
+      icon
       :placeholder="placeholder"
     />
     <div class="mt-2 flex items-center justify-between">

@@ -1,34 +1,35 @@
+import { useLocalStorage } from '@vueuse/core'
 import * as UserApi from './api'
-import type { TUserAuth, TLoginBody } from './types'
+import type { TLoginBody, TRegisterBody } from './types'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<TUserAuth | null>(null)
+  const DEFAULT_STATE = ''
+  const token = useLocalStorage('sidebar', DEFAULT_STATE)
 
   const login = async (body: TLoginBody) => {
     const res = await UserApi.login(body)
-    user.value = res.user
+    token.value = res
+
+    return res
+  }
+  const register = async (body: TRegisterBody) => {
+    const res = await UserApi.register(body)
+    token.value = res
 
     return res
   }
 
-  const logout = async () => {
-    const res = await UserApi.logout()
-    user.value = null
+  //   const logout = async () => {
+  //     const res = await UserApi.logout()
+  //     // user.value = null
 
-    return res
-  }
-
-  const authenticated = async () => {
-    const res = await UserApi.authenticated()
-    user.value = res.user || null
-
-    return res
-  }
+  //     return res
+  //   }
 
   return {
-    user: computed(() => user),
+    token: computed(() => token),
     login,
-    logout,
-    authenticated
+    register
+    // logout,
   }
 })

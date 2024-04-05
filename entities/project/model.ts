@@ -1,9 +1,14 @@
+import { useAuthStore } from '../auth/model'
 import * as ProjectApi from './api'
 // import type { TCalendarParams, TTask, TTaskStatusPayload } from './types'
 
 export const useProject = () => {
+  const { token } = useAuthStore()
   const getAllProjets = async () => {
-    return await ProjectApi.getAllProjets()
+    return await ProjectApi.getAllProjets(token.value)
+  }
+  const getProject = async (uid: string) => {
+    return await ProjectApi.getProject(uid, token.value)
   }
 
   //   const updateTaskStatus = async (body: TTaskStatusPayload) => {
@@ -15,6 +20,7 @@ export const useProject = () => {
   //   }
 
   return {
-    getAllProjets
+    getAllProjets,
+    getProject
   }
 }

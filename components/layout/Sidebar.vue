@@ -85,13 +85,13 @@ const data = ref<SidebarItem[]>([
     icon: IconsProjects
   },
   {
-    url: '/tasks',
-    label: 'Ссылка 1',
+    url: '/boards ',
+    label: 'Доски',
     icon: IconsProjects
   },
   {
-    url: '/tasks',
-    label: 'Ссылка 2',
+    url: '/reports',
+    label: 'Отчеты',
     icon: IconsProjects
   }
 ])

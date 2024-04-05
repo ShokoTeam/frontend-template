@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  ssr: false,
   devtools: { enabled: false },
   modules: [
     '@nuxtjs/eslint-module',
@@ -19,8 +20,8 @@ export default defineNuxtConfig({
   },
   router: {
     options: {
-      linkActiveClass: 'bg-red-300 block w-full',
-      linkExactActiveClass: 'bg-green-400 block w-full'
+      linkActiveClass: 'block w-full text-accent',
+      linkExactActiveClass: 'block w-full text-accent'
     }
   }
 })

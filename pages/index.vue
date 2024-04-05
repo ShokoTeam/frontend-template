@@ -4,6 +4,7 @@
   >
     <LayoutSearchBar
       v-model="query"
+      icon
       placeholder="Поиск"
     >
       <template #options>
@@ -152,27 +153,81 @@
         </div>
       </template>
     </LayoutSearchBar>
-    <div class="grid grid-cols-3 px-4">
+    <div
+      v-if="isLoading"
+      class="w-full px-5 flex items-center justify-center h-28"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22px"
+        height="22px"
+        viewBox="0 0 24 24"
+      ><path
+        fill="currentColor"
+        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+        opacity=".25"
+      /><path
+        fill="currentColor"
+        d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"
+      ><animateTransform
+        attributeName="transform"
+        dur="0.75s"
+        repeatCount="indefinite"
+        type="rotate"
+        values="0 12 12;360 12 12"
+      />
+      </path>
+      </svg>
+    </div>
+    <div
+      v-else
+      class="grid grid-cols-3 px-4 w-full gap-x-2 gap-y-2"
+    >
       <!-- TODO: Project Card -->
       <div
         v-for="item in projects"
         :key="item.uid"
-        class="bg-gray-100 rounded-sm w-full py-4"
+        class="bg-[#F3F3F3] hover:bg-[#E5E5E5] border border-transparent hover:border-accent transition-all duration-100 ease-linear cursor-pointer rounded-[5px] w-full py-7 px-6"
+        @click="navigateTo(`/project/?uid=${item.uid}`)"
       >
-        {{ item.name }}
+        <div class="flex justify-between">
+          <span class="text-xl font-semibold block max-w-[90%] bg-accent">
+            {{ item.name }}
+          </span>
+          <NuxtImg
+            src="/profile_fallback.png"
+            class="size-9 rounded-full"
+            alt="profile image"
+          />
+        </div>
+        <div
+          class="mt-10"
+        >
+          <div
+            v-if="item.tasksCount"
+          >
+            Количество задач: {{ item.tasksCount }}
+          </div>
+          <div>
+            {{ item.team.name }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useProject } from '../entities/project/model'
+import { useProject } from '~/entities/project/model'
 
-const { getAllProjets } = useProject()
-
-onMounted(async () => {
-  await getAllProjets()
+definePageMeta({
+  middleware: [
+    'auth'
+  ]
 })
+
+const projects = ref([])
+const isLoading = ref(false)
 
 const query = ref<string>('')
 
@@ -182,24 +237,22 @@ const form = ref({
   team: ''
 })
 
-const projects = ref([
-  {
-    uid: '3e08c3b1-0833-441f-8061-ad3f2a7161f8',
-    name: 'Some project',
-    team_uid: 'a1814d82-9131-42c0-995e-00d321247b98',
-    consumer_uid: null,
-    inspector_uid: null,
-    created_at: '2024-04-05T10:11:10.152217+00:00',
-    tasksCount: 2
-  },
-  {
-    uid: '3e08c3b1-3434-441f-8061-ad3f2a7161f8',
-    name: 'Some project 2',
-    team_uid: 'a1814d82-9131-42c0-995e-00d321247b98',
-    consumer_uid: null,
-    inspector_uid: null,
-    created_at: '2024-04-05T10:11:10.152217+00:00',
-    tasksCount: 2
+const { getAllProjets } = useProject()
+
+const handleProjects = async () => {
+  isLoading.value = true
+
+  try {
+    const res = await getAllProjets()
+    projects.value = res
+  } catch (e) {
+    console.log(e)
+  } finally {
+    isLoading.value = false
   }
-])
+}
+
+onMounted(async () => {
+  await handleProjects()
+})
 </script>
