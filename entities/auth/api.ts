@@ -1,18 +1,18 @@
 import type { TLoginBody, TUserAuth } from './types'
 import { apiFetch } from '~/extensions/fetch'
 
-export const login = async (body: TLoginBody): Promise<{ message: string, user: TUserAuth }> => {
+export const login = async (body: TLoginBody): Promise<{ token: string }> => {
   return await apiFetch('/api/auth/login', {
     method: 'post',
     body
-  }) as Promise<{ message: string, user: TUserAuth }>
+  }) as Promise<{ token: string }>
 }
 
-export const register = async (body: TLoginBody): Promise<{ message: string, user: TUserAuth }> => {
+export const register = async (body: TLoginBody): Promise<{ token: string }> => {
   return await apiFetch('/api/auth/register', {
     method: 'post',
     body
-  }) as Promise<{ message: string, user: TUserAuth }>
+  }) as Promise<{ token: string }>
 }
 export const logout = async (): Promise<{ status: boolean }> => {
   return await apiFetch('/api/auth/logout', {
