@@ -6,12 +6,38 @@
     <!-- Profile -->
     <div class="py-3 flex justify-between">
       <Transition name="fade">
-        <NuxtImg
-          v-show="!sidebarState"
-          src="/profile_fallback.png"
-          class="size-9 rounded-full"
-          alt="profile image"
-        />
+        <UiDropdownMenu>
+          <UiDropdownMenuTrigger as-child>
+            <NuxtImg
+              v-show="!sidebarState"
+              src="/profile_fallback.png"
+              class="size-9 rounded-full cursor-pointer"
+              alt="profile image"
+            />
+          </UiDropdownMenuTrigger>
+          <UiDropdownMenuContent class="w-44">
+            <!-- <UiDropdownMenuLabel>Panel Position</UiDropdownMenuLabel> -->
+            <!-- <UiDropdownMenuSeparator /> -->
+            <!-- <UiDropdownMenuRadioGroup v-model="">
+              <UiDropdownMenuRadioItem value="top">
+                A
+              </UiDropdownMenuRadioItem>
+              <UiDropdownMenuRadioItem value="bottom">
+                B
+              </UiDropdownMenuRadioItem>
+              <UiDropdownMenuRadioItem value="right">
+                C
+              </UiDropdownMenuRadioItem>
+            </UiDropdownMenuRadioGroup> -->
+            <UiButton
+              size="sm"
+              class="text-red-500 hover:bg-red-300/40 bg-white  w-full py-1"
+              @click="mockLogout()"
+            >
+              Выйти
+            </UiButton>
+          </UiDropdownMenuContent>
+        </UiDropdownMenu>
       </Transition>
       <UiButton
         variant="secondary"
@@ -66,7 +92,9 @@
 </template>
 
 <script setup lang="ts">
+import { useLocalStorage } from '@vueuse/core'
 import IconsProjects from '../icons/Projects.vue'
+import { useAuthStore } from '~/entities/auth/model'
 interface SidebarItem {
     url: string
     label: string
@@ -97,6 +125,11 @@ const data = ref<SidebarItem[]>([
 ])
 
 const sidebarState = ref<boolean>(false)
+
+const mockLogout = () => {
+  localStorage.setItem('token', null)
+  navigateTo('/login')
+}
 </script>
 
 <style>

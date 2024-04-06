@@ -2,8 +2,8 @@
 import { useAuthStore } from '~/entities/auth/model'
 
 const form = ref({
-  email: 'test2@mail.ru',
-  password: 'test'
+  email: 'polina.polyakova@domain.dt',
+  password: 'digitech'
 })
 
 const { login } = useAuthStore()

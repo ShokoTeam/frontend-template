@@ -4,7 +4,7 @@ import type { TLoginBody, TRegisterBody } from './types'
 
 export const useAuthStore = defineStore('auth', () => {
   const DEFAULT_STATE = ''
-  const token = useLocalStorage('sidebar', DEFAULT_STATE)
+  const token = useLocalStorage('token', DEFAULT_STATE)
 
   const login = async (body: TLoginBody) => {
     const res = await UserApi.login(body)

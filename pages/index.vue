@@ -76,7 +76,7 @@
             </UiDropdownMenuContent>
           </UiDropdownMenu>
 
-          <UiDropdownMenu>
+          <!-- <UiDropdownMenu>
             <UiDropdownMenuTrigger as-child>
               <UiButton
                 variant="ghost"
@@ -97,8 +97,6 @@
               </UiButton>
             </UiDropdownMenuTrigger>
             <UiDropdownMenuContent class="w-56">
-              <!-- <UiDropdownMenuLabel>Panel Position</UiDropdownMenuLabel> -->
-              <!-- <UiDropdownMenuSeparator /> -->
               <UiDropdownMenuRadioGroup v-model="form.status">
                 <UiDropdownMenuRadioItem value="top">
                   A
@@ -111,7 +109,7 @@
                 </UiDropdownMenuRadioItem>
               </UiDropdownMenuRadioGroup>
             </UiDropdownMenuContent>
-          </UiDropdownMenu>
+          </UiDropdownMenu> -->
         </div>
         <div>
           <UiDropdownMenu>
@@ -181,37 +179,47 @@
     </div>
     <div
       v-else
-      class="grid grid-cols-3 px-4 w-full gap-x-2 gap-y-2"
+      class="grid grid-cols-1 px-4 w-full gap-x-2 gap-y-2 "
     >
-      <!-- TODO: Project Card -->
       <div
-        v-for="item in projects"
-        :key="item.uid"
-        class="bg-[#F3F3F3] hover:bg-[#E5E5E5] border border-transparent hover:border-accent transition-all duration-100 ease-linear cursor-pointer rounded-[5px] w-full py-7 px-6"
-        @click="navigateTo(`/project/?uid=${item.uid}`)"
+        v-if="projects && projects.length !== 0"
+        class="grid grid-cols-3 gap-x-2 gap-y-2"
       >
-        <div class="flex justify-between">
-          <span class="text-xl font-semibold block max-w-[90%] bg-accent">
-            {{ item.name }}
-          </span>
-          <NuxtImg
-            src="/profile_fallback.png"
-            class="size-9 rounded-full"
-            alt="profile image"
-          />
-        </div>
         <div
-          class="mt-10"
+          v-for="item in projects"
+          :key="item.uid"
+          class="bg-[#F3F3F3] hover:bg-[#E5E5E5] border border-transparent hover:border-accent transition-all duration-100 ease-linear cursor-pointer rounded-[5px] w-full py-7 px-6"
+          @click="navigateTo(`/project/?uid=${item.uid}`)"
         >
-          <div
-            v-if="item.tasksCount"
-          >
-            Количество задач: {{ item.tasksCount }}
+          <div class="flex justify-between">
+            <span class="text-xl font-semibold block max-w-[90%] bg-accent">
+              {{ item.name }}
+            </span>
+            <NuxtImg
+              src="/profile_fallback.png"
+              class="size-9 rounded-full"
+              alt="profile image"
+            />
           </div>
-          <div>
-            {{ item.team.name }}
+          <div
+            class="mt-10"
+          >
+            <div
+              v-if="item.tasksCount"
+            >
+              Количество задач: {{ item.tasksCount }}
+            </div>
+            <div>
+              {{ item && item.team && item.team.name }}
+            </div>
           </div>
         </div>
+      </div>
+      <div
+        v-else
+        class="flex items-center justify-center w-full "
+      >
+        <span>Ничего не найдено</span>
       </div>
     </div>
   </div>
@@ -251,6 +259,10 @@ const handleProjects = async () => {
     isLoading.value = false
   }
 }
+
+const classObject = computed(() => {
+  return projects.value && projects.value.length !== 0 ? 'grid-cols-3' : 'grid-cols-1'
+})
 
 onMounted(async () => {
   await handleProjects()
