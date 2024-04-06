@@ -69,13 +69,17 @@
         <li
           v-for="item in data"
           :key="item.url"
-          class="list-none py-2 hover:bg-zinc-200 px-2 rounded-md transition-all duration-150 ease-linear "
+          :class="sidebarState ? 'items-center bg-zinc-100' : ''"
+          class="list-none py-2 hover:bg-zinc-200 flex px-2 rounded-md transition-all duration-150 ease-linear "
         >
           <NuxtLink
             :to="item.url"
             class="flex items-center gap-x-2 w-full"
           >
-            <component :is="item.icon" />
+            <component
+              :is="item.icon"
+              v-if="sidebarState"
+            />
             <Transition name="fade">
               <span
                 v-show="!sidebarState"
@@ -92,9 +96,9 @@
 </template>
 
 <script setup lang="ts">
-import { useLocalStorage } from '@vueuse/core'
+// import { useLocalStorage } from '@vueuse/core'
 import IconsProjects from '../icons/Projects.vue'
-import { useAuthStore } from '~/entities/auth/model'
+// import { useAuthStore } from '~/entities/auth/model'
 interface SidebarItem {
     url: string
     label: string
@@ -127,6 +131,7 @@ const data = ref<SidebarItem[]>([
 const sidebarState = ref<boolean>(false)
 
 const mockLogout = () => {
+  // token.value = null
   localStorage.setItem('token', null)
   navigateTo('/login')
 }

@@ -201,8 +201,8 @@
                       </span>
                     </div>
                     <div class="mt-3">
-                      {{ item.created_at }}
-                      {{ new Date() }}
+                      <!-- {{ item.created_at }}
+                      {{ new Date() }} -->
                     <!-- 12.01.2024 - 12.03.2024 -->
                     </div>
                     <div
@@ -287,8 +287,8 @@
                       </span>
                     </div>
                     <div class="mt-3">
-                      {{ item.created_at }}
-                      {{ new Date() }}
+                      <!-- {{ item.created_at }}
+                      {{ new Date() }} -->
                     <!-- 12.01.2024 - 12.03.2024 -->
                     </div>
                     <div
@@ -446,6 +446,23 @@ const handleProject = async () => {
     isLoading.value = false
   }
 }
+function getNumberOfDays (start: string) {
+  const date1 = new Date(start)
+  const date2 = new Date()
+
+  // One day in milliseconds
+  const oneDay = 1000 * 60 * 60 * 24
+
+  // Calculating the time difference between two dates
+  const diffInTime = date2.getTime() - date1.getTime()
+
+  // Calculating the no. of days between two dates
+  const diffInDays = Math.round(diffInTime / oneDay)
+
+  return diffInDays
+}
+
+console.log(getNumberOfDays('2/1/2021', '3/1/2021'))
 
 onMounted(async () => {
   await handleProject()

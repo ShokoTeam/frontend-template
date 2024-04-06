@@ -5,9 +5,12 @@
 </template>
 
 <script setup lang="ts">
-// useHead({
-//  htmlAttrs: {
-// 'data-theme': 'default'
-//  }
-// })
+useHead({
+  meta: [
+    {
+      'http-equiv': 'Content-Security-Policy',
+      content: 'upgrade-insecure-requests'
+    }
+  ]
+})
 </script>
